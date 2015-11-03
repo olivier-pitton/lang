@@ -290,7 +290,7 @@ public class Flags {
         ClassFlags            = LocalClassFlags | INTERFACE | PUBLIC | ANNOTATION,
         InterfaceVarFlags     = FINAL | STATIC | PUBLIC,
         VarFlags              = AccessFlags | FINAL | STATIC |
-                                VOLATILE | TRANSIENT | ENUM,
+                                VOLATILE | TRANSIENT | ENUM | SYNCHRONIZED,
         ConstructorFlags      = AccessFlags,
         InterfaceMethodFlags  = ABSTRACT | PUBLIC,
         MethodFlags           = AccessFlags | ABSTRACT | STATIC | NATIVE |

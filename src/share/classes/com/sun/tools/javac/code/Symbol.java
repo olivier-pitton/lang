@@ -594,7 +594,12 @@ public abstract class Symbol extends AnnoConstruct implements Element {
     }
 
     public Set<Modifier> getModifiers() {
-        return Flags.asModifierSet(flags());
+		Set<Modifier> modifiers = Flags.asModifierSet(flags());
+		if (getKind() == ElementKind.FIELD && modifiers.remove(Modifier.SYNCHRONIZED)) {
+			modifiers.add(Modifier.TRANSIENT);
+		}
+
+		return modifiers;
     }
 
     public Name getSimpleName() {
