@@ -597,7 +597,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
 
     public Set<Modifier> getModifiers() {
 		Set<Modifier> modifiers = new HashSet<>(Flags.asModifierSet(flags()));
-		if (getKind() == ElementKind.FIELD && modifiers.remove(Modifier.SYNCHRONIZED)) {
+		if (type instanceof TypeVar && modifiers.remove(Modifier.SYNCHRONIZED)) {
 			modifiers.add(Modifier.TRANSIENT);
 		}
 
