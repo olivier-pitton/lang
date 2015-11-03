@@ -27,6 +27,8 @@ package com.sun.tools.javac.code;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Inherited;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -594,12 +596,12 @@ public abstract class Symbol extends AnnoConstruct implements Element {
     }
 
     public Set<Modifier> getModifiers() {
-		Set<Modifier> modifiers = Flags.asModifierSet(flags());
+		Set<Modifier> modifiers = new HashSet<>(Flags.asModifierSet(flags()));
 		if (getKind() == ElementKind.FIELD && modifiers.remove(Modifier.SYNCHRONIZED)) {
 			modifiers.add(Modifier.TRANSIENT);
 		}
 
-		return modifiers;
+		return Collections.unmodifiableSet(modifiers);
     }
 
     public Name getSimpleName() {
