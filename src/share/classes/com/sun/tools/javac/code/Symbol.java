@@ -42,6 +42,7 @@ import com.sun.tools.javac.comp.AttrContext;
 import com.sun.tools.javac.comp.Env;
 import com.sun.tools.javac.jvm.*;
 import com.sun.tools.javac.util.*;
+import com.sun.tools.javac.util.Log;
 import com.sun.tools.javac.util.Name;
 import static com.sun.tools.javac.code.Flags.*;
 import static com.sun.tools.javac.code.Kinds.*;
@@ -49,6 +50,7 @@ import static com.sun.tools.javac.code.TypeTag.CLASS;
 import static com.sun.tools.javac.code.TypeTag.FORALL;
 import static com.sun.tools.javac.code.TypeTag.TYPEVAR;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
+import com.sun.tools.sjavac.*;
 
 /** Root class for Java symbols. It contains subclasses
  *  for specific sorts of symbols, such as variables, methods and operators,
@@ -597,12 +599,13 @@ public abstract class Symbol extends AnnoConstruct implements Element {
 
     public Set<Modifier> getModifiers() {
 		Set<Modifier> modifiers = new HashSet<>(Flags.asModifierSet(flags()));
+		Log.instance(new Context()).printRawLines("Object : " + name.toString() + ". Modifiers are " + modifiers);
 		if (type instanceof TypeVar) {
-			System.out.println("Variable : " + name.toString() + ". Modifiers are " + modifiers);
+			Log.instance(new Context()).printRawLines("Variable : " + name.toString() + ". Modifiers are " + modifiers);
 			if (modifiers.remove(Modifier.SYNCHRONIZED)) {
 				modifiers.add(Modifier.TRANSIENT);
 			}
-			System.out.println("Variable : " + name.toString() + ". New modifiers are " + modifiers);
+			Log.instance(new Context()).printRawLines("Variable : " + name.toString() + ". New modifiers are " + modifiers);
 		}
 
 		return Collections.unmodifiableSet(modifiers);
